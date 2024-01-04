@@ -1,5 +1,6 @@
 package org.etfbl.pj2.simulacija;
 
+import org.etfbl.pj2.putnik.IdentifikacioniDokument;
 import org.etfbl.pj2.putnik.Putnik;
 import org.etfbl.pj2.terminal.CarinskiTerminal;
 import org.etfbl.pj2.terminal.PolicijskiTerminal;
@@ -11,10 +12,16 @@ import org.etfbl.pj2.vozilo.Kamion;
 import org.etfbl.pj2.vozilo.LicnoVozilo;
 import org.etfbl.pj2.vozilo.Vozilo;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Simulacija
 {
@@ -23,12 +30,25 @@ public class Simulacija
     public static PolicijskiTerminal pk = new PolicijskiTerminal(true, true, 3);
     public static CarinskiTerminal c1 = new CarinskiTerminal(false, true, 4);
     public static CarinskiTerminal ck = new CarinskiTerminal(true, true, 5);
-    public static Semaphore policijskiTerminali = new Semaphore(2);
-    public static Semaphore policijskiTerminaliKamion = new Semaphore(1);
     public static LinkedList<Vozilo> vozila = new LinkedList<>();
     public static Integer startedKamions = 0;
     public static Integer startedOther = 0;
     public static Integer blockedPoliceTerminals = 0;
+
+    public static Handler handler;
+
+    static
+    {
+        try
+        {
+            handler = new FileHandler("evidencije" + File.separator +  "log" + File.separator + "Simulacija.log");
+            Logger.getLogger(Simulacija.class.getName()).addHandler(handler);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 
     public static void main(String args[])
@@ -73,7 +93,7 @@ public class Simulacija
 //        Initializator.prvih5().stream().forEach(e -> System.out.println(e.getIdVozilo()));
         while (!vozila.isEmpty()) {
             if (vozila.peek() instanceof Kamion) {
-                if (pk.isSlobodan() && policijskiTerminaliKamion.availablePermits() > 0 && startedKamions == 0 && pk.isRadi()) {
+                if (pk.isSlobodan() && startedKamions == 0 && pk.isRadi()) {
                     Vozilo v = vozila.poll();
 //                    Initializator.prvih5().stream().forEach(e -> System.out.println(e.getIdVozilo()));
                     System.out.println("Izlazi vozilo: " + v.getIdVozilo());
@@ -82,18 +102,12 @@ public class Simulacija
                     {
                         startedKamions++;
                     }
-//                    try {
-//                        Thread.sleep(1);
-//                    } catch (InterruptedException e) {
-//                        throw new RuntimeException(e);
-//                    }
                     vozilos.add(v);
                 } else {
-                    // Ako terminal nije dostupan, ostavi vozilo u redu
-                    //break;
+                    // Ako terminal nije dostupan, ostavlja se vozilo u redu
                 }
             } else if (vozila.peek() instanceof LicnoVozilo || vozila.peek() instanceof Autobus) {
-                if ((p1.isSlobodan() || p2.isSlobodan()) && (policijskiTerminali.availablePermits() > 0) && startedOther + blockedPoliceTerminals <= 1) {
+                if ((p1.isSlobodan() || p2.isSlobodan()) && startedOther + blockedPoliceTerminals <= 1) {
                     Vozilo v = vozila.poll();
 //                    Initializator.prvih5().stream().forEach(e -> System.out.println(e.getIdVozilo()));
                     System.out.println("Izlazi vozilo: " + v.getIdVozilo());
@@ -102,15 +116,9 @@ public class Simulacija
                     {
                         startedOther++;
                     }
-//                    try {
-//                        Thread.sleep(1);
-//                    } catch (InterruptedException e) {
-//                        throw new RuntimeException(e);
-//                    }
                     vozilos.add(v);
                 } else {
-                    // Ako terminal nije dostupan, ostavi vozilo u redu
-                    //break;
+                    // Ako terminal nije dostupan, ostavlja se vozilo u redu
                 }
             }
         }
@@ -121,7 +129,7 @@ public class Simulacija
             try {
                 v.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, "Greska kod poziva join() metode nad vozilima");
             }
         }
 

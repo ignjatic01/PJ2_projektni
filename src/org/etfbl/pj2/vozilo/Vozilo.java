@@ -8,6 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.SynchronousQueue;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 
 public abstract class Vozilo extends Thread
 {
@@ -16,8 +19,21 @@ public abstract class Vozilo extends Thread
     protected List<Putnik> putnici;
     protected static int brojVozila = 0;
     protected int idVozilo;
-//    protected static LinkedList<Vozilo> redZaCarinu = new LinkedList<>();
     protected long stopTime;
+
+    public static Handler handler;
+    static
+    {
+        try
+        {
+            handler = new FileHandler("evidencije" + File.separator +  "log" + File.separator + "Vozilo.log");
+            Logger.getLogger(Vozilo.class.getName()).addHandler(handler);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public Vozilo(int maxBrojPutnika)
     {
@@ -67,15 +83,6 @@ public abstract class Vozilo extends Thread
     public void setIdVozilo(int idVozilo) {
         this.idVozilo = idVozilo;
     }
-
-//    public SynchronousQueue<Vozilo> getRedZaCarinu() {
-//        return redZaCarinu;
-//    }
-
-//    public void setRedZaCarinu(LinkedList<Vozilo> redZaCarinu) {
-//        this.redZaCarinu = redZaCarinu;
-//    }
-
 
     public long getStopTime() {
         return stopTime;

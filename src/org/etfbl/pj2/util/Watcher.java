@@ -4,10 +4,28 @@ import org.etfbl.pj2.simulacija.Simulacija;
 
 import java.io.*;
 import java.nio.file.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Watcher extends Thread
 {
     Path directoryPath = Paths.get("terminali");
+
+    public static Handler handler;
+    static
+    {
+        try
+        {
+            handler = new FileHandler("evidencije" + File.separator +  "log" + File.separator + "Watcher.log");
+            Logger.getLogger(Watcher.class.getName()).addHandler(handler);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public Watcher()
     {
@@ -20,7 +38,7 @@ public class Watcher extends Thread
             watchService = FileSystems.getDefault().newWatchService();
             directoryPath.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Logger.getLogger(Watcher.class.getName()).log(Level.WARNING, "Greska prilikom registracije Watch servisa");
         }
         System.out.println("Watcher je pokrenut. Pratim promjene u direktorijumu: " + directoryPath);
         while (true)
@@ -33,13 +51,12 @@ public class Watcher extends Thread
                     {
                         Path modifiedFile = (Path) event.context();
                         System.out.println("Fajl je izmijenjen: " + modifiedFile);
-//                        ucitajTerminale();
                     }
                 }
                 key.reset();
                 ucitajTerminale();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Logger.getLogger(Watcher.class.getName()).log(Level.WARNING, "Interrupted izuzetak na Watcher niti prilikom uzimanja WatchKey iz WatchService");
             }
         }
     }
@@ -93,17 +110,11 @@ public class Watcher extends Thread
             }
             br.close();
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            Logger.getLogger(Watcher.class.getName()).log(Level.WARNING, "Nije pronadjen fajl na putanji: terminali/terminali.txt");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Logger.getLogger(Watcher.class.getName()).log(Level.WARNING, "Greska tokom pokusaja citanja reda iz fajla");
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Logger.getLogger(Watcher.class.getName()).log(Level.WARNING, "Interrupted tokom stanja spavanja");
         }
-    }
-
-    public static void main(String args[])
-    {
-        Watcher watcher = new Watcher();
-        watcher.start();
     }
 }

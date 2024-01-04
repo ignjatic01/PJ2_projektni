@@ -1,13 +1,35 @@
 package org.etfbl.pj2.putnik;
 
+import org.etfbl.pj2.dokumentacija.CarinskaDokumentacija;
+
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Random;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 
 public class IdentifikacioniDokument implements Serializable
 {
     private String serijskiBroj;
     private boolean ispravan;
+
+    public static Handler handler;
+
+    static
+    {
+        try
+        {
+            handler = new FileHandler("evidencije" + File.separator +  "log" + File.separator + "IdentifikacioniDokument.log");
+            Logger.getLogger(IdentifikacioniDokument.class.getName()).addHandler(handler);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public IdentifikacioniDokument()
     {
@@ -56,5 +78,11 @@ public class IdentifikacioniDokument implements Serializable
     public int hashCode()
     {
         return serijskiBroj != null ? serijskiBroj.hashCode() : 0;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "IdentifikacioniDokument: " + serijskiBroj + " ispravan: " + ispravan;
     }
 }

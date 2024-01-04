@@ -7,10 +7,28 @@ import org.etfbl.pj2.vozilo.Vozilo;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PolicijskiTerminal extends Terminal
 {
     private static List<Putnik> kaznjeniPutnici = new ArrayList<>();
+
+    public static Handler handler;
+    static
+    {
+        try
+        {
+            handler = new FileHandler("evidencije" + File.separator +  "log" + File.separator + "PolicijskiTerminal.log");
+            Logger.getLogger(PolicijskiTerminal.class.getName()).addHandler(handler);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
     public PolicijskiTerminal(boolean zaKamione, boolean radi, int id)
     {
         super(zaKamione, radi, id);
@@ -28,7 +46,7 @@ public class PolicijskiTerminal extends Terminal
             oos.writeObject(kaznjeniPutnici);
             oos.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Logger.getLogger(PolicijskiTerminal.class.getName()).log(Level.WARNING, "Izuzetak pri pokusaju serijalizacije kaznjenih putnika");
         }
     }
 
@@ -40,7 +58,7 @@ public class PolicijskiTerminal extends Terminal
             vrijednost = (List<Putnik>) ois.readObject();
             ois.close();
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            Logger.getLogger(PolicijskiTerminal.class.getName()).log(Level.WARNING, "Izuzetak pri pokusaju deserijalizacije kaznjenih putnika");
         }
         return vrijednost;
     }

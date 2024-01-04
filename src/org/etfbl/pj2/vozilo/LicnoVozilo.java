@@ -6,12 +6,31 @@ import org.etfbl.pj2.terminal.PolicijskiTerminal;
 import org.etfbl.pj2.util.Reporter;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LicnoVozilo extends Vozilo
 {
     public static final int MAX_BROJ_PUTNIKA = 5;
+
+    public static Handler handler;
+    static
+    {
+        try
+        {
+            handler = new FileHandler("evidencije" + File.separator +  "log" + File.separator + "LicnoVozilo.log");
+            Logger.getLogger(LicnoVozilo.class.getName()).addHandler(handler);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public LicnoVozilo()
     {
@@ -34,11 +53,6 @@ public class LicnoVozilo extends Vozilo
         Random random = new Random();
         boolean petlja = true;
         boolean validnoVozilo = true;
-//        try {
-//            Simulacija.policijskiTerminali.acquire();
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
         while (petlja && validnoVozilo)
         {
 
@@ -67,7 +81,6 @@ public class LicnoVozilo extends Vozilo
                 }
                 this.setStopTime(System.currentTimeMillis());
                 petlja = false;
-//                Simulacija.policijskiTerminali.release();
             } else if (Simulacija.p2.isSlobodan() && Simulacija.p2.isRadi()) {
                 Simulacija.p2.setSlobodan(false);
                 Simulacija.p2.setVozilo(this);
@@ -106,7 +119,7 @@ public class LicnoVozilo extends Vozilo
                     try {
                         wait();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        Logger.getLogger(LicnoVozilo.class.getName()).log(Level.WARNING, "Interrupted prilikom cekanja na oslobadjanje terminala");
                     }
                 }
             }
@@ -209,7 +222,7 @@ public class LicnoVozilo extends Vozilo
             try {
                 sleep(500);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Logger.getLogger(LicnoVozilo.class.getName()).log(Level.WARNING, "Interrupted prilikom stanja spavanja (Policijska logika)");
             }
             if(!p.getId().isIspravan())
             {
@@ -231,7 +244,7 @@ public class LicnoVozilo extends Vozilo
         try {
             sleep(2000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Logger.getLogger(LicnoVozilo.class.getName()).log(Level.WARNING, "Interrupted prilikom stanja spavanja (Carinska logika)");
         }
         return true;
     }

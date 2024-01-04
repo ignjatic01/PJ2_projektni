@@ -6,10 +6,16 @@ import org.etfbl.pj2.simulacija.Simulacija;
 import org.etfbl.pj2.terminal.PolicijskiTerminal;
 import org.etfbl.pj2.util.Reporter;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Kamion extends Vozilo
 {
@@ -17,6 +23,20 @@ public class Kamion extends Vozilo
     private double deklarisanaTezina;
     private double stvarnaTezina;
     private CarinskaDokumentacija dokumentacija;
+
+    public static Handler handler;
+    static
+    {
+        try
+        {
+            handler = new FileHandler("evidencije" + File.separator +  "log" + File.separator + "Kamion.log");
+            Logger.getLogger(Kamion.class.getName()).addHandler(handler);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public Kamion()
     {
@@ -86,11 +106,6 @@ public class Kamion extends Vozilo
 
     public void run()
     {
-//        try {
-//            Simulacija.policijskiTerminaliKamion.acquire();
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
         Random random = new Random();
         boolean validnoVozilo = true;
 
@@ -121,7 +136,7 @@ public class Kamion extends Vozilo
                     try {
                         wait();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        Logger.getLogger(Kamion.class.getName()).log(Level.WARNING, "Interrupted tokom cekanja na oslobadjanje carinskog terminala");
                     }
                 }
             }
@@ -169,7 +184,7 @@ public class Kamion extends Vozilo
             try {
                 sleep(500);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Logger.getLogger(Kamion.class.getName()).log(Level.WARNING, "Interrupted tokom stanja spavanja niti (Policijska logika)");
             }
             if(!p.getId().isIspravan())
             {
@@ -191,7 +206,7 @@ public class Kamion extends Vozilo
         try {
             sleep(500);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Logger.getLogger(Kamion.class.getName()).log(Level.WARNING, "Interrupted tokom stanja spavanja niti (Policijska logika)");
         }
         //System.out.println(this.getStvarnaTezina() +  " > " + this.getDeklarisanaTezina());
         if(this.getStvarnaTezina() > this.getDeklarisanaTezina())

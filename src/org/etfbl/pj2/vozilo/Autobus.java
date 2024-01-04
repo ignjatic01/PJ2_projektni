@@ -5,13 +5,34 @@ import org.etfbl.pj2.putnik.Putnik;
 import org.etfbl.pj2.simulacija.Simulacija;
 import org.etfbl.pj2.terminal.PolicijskiTerminal;
 import org.etfbl.pj2.util.Reporter;
+import org.etfbl.pj2.util.Watcher;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Autobus extends Vozilo
 {
     public static final int MAX_BROJ_PUTNIKA = 52;
+
+    public static Handler handler;
+    static
+    {
+        try
+        {
+            handler = new FileHandler("evidencije" + File.separator +  "log" + File.separator + "Autobus.log");
+            Logger.getLogger(Autobus.class.getName()).addHandler(handler);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
     public Autobus()
     {
         super(MAX_BROJ_PUTNIKA);
@@ -45,11 +66,6 @@ public class Autobus extends Vozilo
         Random random = new Random();
         boolean petlja = true;
         boolean validnoVozilo = true;
-//        try {
-//            Simulacija.policijskiTerminali.acquire();
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
         while (petlja && validnoVozilo)
         {
 
@@ -78,7 +94,6 @@ public class Autobus extends Vozilo
                 }
                 this.setStopTime(System.currentTimeMillis());
                 petlja = false;
-//                Simulacija.policijskiTerminali.release();
             } else if (Simulacija.p2.isSlobodan() && Simulacija.p1.isRadi()) {
                 Simulacija.p2.setSlobodan(false);
                 Simulacija.p2.setVozilo(this);
@@ -104,7 +119,6 @@ public class Autobus extends Vozilo
                 }
                 this.setStopTime(System.currentTimeMillis());
                 petlja = false;
-//                Simulacija.policijskiTerminali.release();
             }
         }
 
@@ -118,7 +132,7 @@ public class Autobus extends Vozilo
                     try {
                         wait();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        Logger.getLogger(Autobus.class.getName()).log(Level.WARNING, "Interrupted tokom cekanja na carinski terminal");
                     }
                 }
             }
@@ -211,7 +225,7 @@ public class Autobus extends Vozilo
             try {
                 sleep(100);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Logger.getLogger(Autobus.class.getName()).log(Level.WARNING, "Interrupted tokom spavanja niti (Policijska logika)");
             }
             if(!p.getId().isIspravan())
             {
@@ -237,7 +251,7 @@ public class Autobus extends Vozilo
             try {
                 sleep(100);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Logger.getLogger(Autobus.class.getName()).log(Level.WARNING, "Interrupted tokom spavanja niti (Carinska logika)");
             }
             if(p.getKofer() != null)
             {

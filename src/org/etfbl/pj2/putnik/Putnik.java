@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 
 public class Putnik implements Serializable
 {
@@ -15,6 +18,21 @@ public class Putnik implements Serializable
     private IdentifikacioniDokument id;
     private Kofer kofer;
     private boolean vozac;
+
+    public static Handler handler;
+
+    static
+    {
+        try
+        {
+            handler = new FileHandler("evidencije" + File.separator +  "log" + File.separator + "Putnik.log");
+            Logger.getLogger(Putnik.class.getName()).addHandler(handler);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public Putnik(String ime, String prezime, boolean vozac)
     {

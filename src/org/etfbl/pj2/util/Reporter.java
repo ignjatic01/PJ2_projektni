@@ -9,11 +9,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Reporter {
     private static long currTime = System.currentTimeMillis();
     private static final String PUTNICI_PATH = "evidencije" + File.separator + "putnici" + File.separator;
     private static final String VOZILA_PATH = "evidencije" + File.separator + "vozila" + File.separator;
+
+    public static Handler handler;
+    static
+    {
+        try
+        {
+            handler = new FileHandler("evidencije" + File.separator +  "log" + File.separator + "Reporter.log");
+            Logger.getLogger(Reporter.class.getName()).addHandler(handler);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public static void serijalizacijaKaznjenih()
     {
@@ -32,7 +50,7 @@ public class Reporter {
             pw.println(putnik.getClass().getSimpleName() + "#" + vozilo.getIdVozilo() + "#" + putnik.getIme() + "#" + putnik.getPrezime() + "#" + razlog);
             pw.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Logger.getLogger(Reporter.class.getName()).log(Level.WARNING, "Greska prilikom upisa putnika u tekstualni fajl: neispravniPutnici.txt");
         }
     }
 
@@ -43,7 +61,7 @@ public class Reporter {
             pw.println(vozilo.getClass().getSimpleName() + "#" + vozilo.getIdVozilo() + "#" + razlog);
             pw.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Logger.getLogger(Reporter.class.getName()).log(Level.WARNING, "Greska prilikom upisa vozila u tekstualni fajl: vozila.txt");
         }
     }
 
