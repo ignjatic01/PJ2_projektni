@@ -1,2 +1,4 @@
-Kamion#1#Vozilo iskljuceno zbog pretovara
-Kamion#4#Vozilo iskljuceno zbog pretovara
+Kamion#3#Vozilo iskljuceno zbog pretovara
+Autobus#11#Vozac iskljucen na carinskom terminalu
+Kamion#19#Vozilo iskljuceno zbog pretovara
+Kamion#22#Vozilo iskljuceno zbog pretovara

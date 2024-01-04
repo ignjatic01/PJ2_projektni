@@ -1,5 +1,7 @@
 package org.etfbl.pj2.simulacija;
 
+import javafx.scene.control.Button;
+import org.etfbl.pj2.gui.Main;
 import org.etfbl.pj2.putnik.IdentifikacioniDokument;
 import org.etfbl.pj2.putnik.Putnik;
 import org.etfbl.pj2.terminal.CarinskiTerminal;
@@ -53,44 +55,41 @@ public class Simulacija
 
     public static void main(String args[])
     {
-        vozila.add(new Kamion());
-        vozila.add(new Kamion());
-        vozila.add(new Kamion());
-        vozila.add(new Kamion());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new Autobus());
-        vozila.add(new Autobus());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new Autobus());
-        vozila.add(new Autobus());
-        vozila.add(new Autobus());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new Kamion());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new Kamion());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new Autobus());
-        vozila.add(new Kamion());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-
+        initializeVozila();
         List<Vozilo> vozilos = new ArrayList<>();
-        Initializator.obrisiSvePutnike();
-        Initializator.obrisiZapiseVozila();
-        Watcher.ucitajTerminale();
-        System.out.println(p1.isRadi() + " " + p2.isRadi() + " " + pk.isRadi() + " " + c1.isRadi() + " " + ck.isRadi());
-        Watcher watcher = new Watcher();
-        watcher.start();
+        initializeFiles();
+
+        Main gui = new Main();
+        Thread guiThread = new Thread(gui);
+        guiThread.start();
+
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         long pocetak = System.currentTimeMillis();
 //        Initializator.prvih5().stream().forEach(e -> System.out.println(e.getIdVozilo()));
+        Initializator.prvih5();
+        kretanjeVozila(vozilos);
+
+        for(Vozilo v : vozilos)
+        {
+            try {
+                v.join();
+            } catch (InterruptedException e) {
+                Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, "Greska kod poziva join() metode nad vozilima");
+            }
+        }
+
+        System.out.println("KRAJ SIMULACIJE");
+        Reporter.serijalizacijaKaznjenih();
+        System.out.println(System.currentTimeMillis() - pocetak);
+    }
+
+    public static void kretanjeVozila(List<Vozilo> vozilos)
+    {
         while (!vozila.isEmpty()) {
             if (vozila.peek() instanceof Kamion) {
                 if (pk.isSlobodan() && startedKamions == 0 && pk.isRadi()) {
@@ -98,6 +97,7 @@ public class Simulacija
 //                    Initializator.prvih5().stream().forEach(e -> System.out.println(e.getIdVozilo()));
                     System.out.println("Izlazi vozilo: " + v.getIdVozilo());
                     v.start();
+                    Initializator.prvih5();
                     synchronized (startedKamions)
                     {
                         startedKamions++;
@@ -112,6 +112,7 @@ public class Simulacija
 //                    Initializator.prvih5().stream().forEach(e -> System.out.println(e.getIdVozilo()));
                     System.out.println("Izlazi vozilo: " + v.getIdVozilo());
                     v.start();
+                    Initializator.prvih5();
                     synchronized (startedOther)
                     {
                         startedOther++;
@@ -122,25 +123,46 @@ public class Simulacija
                 }
             }
         }
+    }
 
+    public static void initializeVozila()
+    {
+        vozila.add(new Kamion());
+        vozila.add(new Kamion());
+        vozila.add(new Kamion());
+        vozila.add(new Kamion());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new Autobus());
+        vozila.add(new Autobus());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new Autobus());
+        vozila.add(new Autobus());
+        vozila.add(new Autobus());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new Kamion());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new Kamion());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new Autobus());
+        vozila.add(new Kamion());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new LicnoVozilo());
+        vozila.add(new LicnoVozilo());
+    }
 
-        for(Vozilo v : vozilos)
-        {
-            try {
-                v.join();
-            } catch (InterruptedException e) {
-                Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, "Greska kod poziva join() metode nad vozilima");
-            }
-        }
-
-
-
-
-        System.out.println("KRAJ SIMULACIJE");
-        Reporter.serijalizacijaKaznjenih();
+    public static void initializeFiles()
+    {
+        Initializator.obrisiSvePutnike();
+        Initializator.obrisiZapiseVozila();
+        Watcher.ucitajTerminale();
         System.out.println(p1.isRadi() + " " + p2.isRadi() + " " + pk.isRadi() + " " + c1.isRadi() + " " + ck.isRadi());
-        System.out.println(pocetak - System.currentTimeMillis());
-        List<Putnik> kaznjeniPutnici = Reporter.deserijalizacijaKaznjenih();
-        kaznjeniPutnici.stream().forEach(System.out::println);
+        Watcher watcher = new Watcher();
+        watcher.start();
     }
 }

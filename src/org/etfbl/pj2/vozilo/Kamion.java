@@ -1,6 +1,7 @@
 package org.etfbl.pj2.vozilo;
 
 import org.etfbl.pj2.dokumentacija.CarinskaDokumentacija;
+import org.etfbl.pj2.gui.Main;
 import org.etfbl.pj2.putnik.Putnik;
 import org.etfbl.pj2.simulacija.Simulacija;
 import org.etfbl.pj2.terminal.PolicijskiTerminal;
@@ -112,11 +113,15 @@ public class Kamion extends Vozilo
 
         Simulacija.pk.setSlobodan(false);
         Simulacija.pk.setVozilo(this);
+        Main.setPkbtnText(this.getClass().getSimpleName() + ": " + this.getIdVozilo());
+        Main.setPkbtnColor("-fx-background-color: #5FAEEA;");
         System.out.println("Obrada kamiona " + this.getIdVozilo() + " na terminalu 3");
         validnoVozilo = this.policijskaLogika();
         if(!validnoVozilo)
         {
             System.out.println("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
+            Main.setPkbtnText("PK");
+            Main.setPkbtnColor("-fx-background-color: #ABFFAC;");
             Simulacija.pk.setVozilo(null);
             Simulacija.pk.setSlobodan(true);
             synchronized (Simulacija.startedKamions)
@@ -142,6 +147,8 @@ public class Kamion extends Vozilo
             }
             if(Simulacija.ck.isSlobodan() && Simulacija.ck.isRadi())
             {
+                Main.setPkbtnText("PK");
+                Main.setPkbtnColor("-fx-background-color: #ABFFAC;");
                 Simulacija.pk.setVozilo(null);
                 Simulacija.pk.setSlobodan(true);
                 synchronized (Simulacija.startedKamions)
@@ -151,6 +158,8 @@ public class Kamion extends Vozilo
 
                 Simulacija.ck.setSlobodan(false);
                 Simulacija.ck.setVozilo(this);
+                Main.setCkbtnText(this.getClass().getSimpleName() + ": " + this.getIdVozilo());
+                Main.setCkbtnColor("-fx-background-color: #5FAEEA;");
                 System.out.println("Obrada kamiona " + this.getIdVozilo() + " na carinskom terminalu");
                 validnoVozilo = this.carinskaLogika();
                 if(!validnoVozilo)
@@ -158,6 +167,8 @@ public class Kamion extends Vozilo
                     System.out.println("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
                     //return;
                 }
+                Main.setCkbtnText("CK");
+                Main.setCkbtnColor("-fx-background-color: #A7F9CB;");
                 Simulacija.ck.setSlobodan(true);
                 Simulacija.ck.setVozilo(null);
                 carinskaPetlja = false;
