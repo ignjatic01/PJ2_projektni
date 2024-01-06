@@ -6,10 +6,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.etfbl.pj2.util.Initializator;
 
 public class Main extends Application implements Runnable
 {
@@ -25,16 +29,25 @@ public class Main extends Application implements Runnable
 
     private static Button c1btn;
     private static Button ckbtn;
+    private static Button pokreni;
+    private static Button stopiraj;
+    private static Label vrijeme;
+    private static volatile boolean pauziran;
     @Override
     public void start(Stage primaryStage) throws Exception
     {
         primaryStage.setTitle("Hello world");
-        StackPane layout = new StackPane();
+        StackPane layoutVrijeme = new StackPane();
 
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10, 10, 10, 10));
         gridPane.setVgap(10);
         gridPane.setHgap(20);
+
+        vrijeme = new Label("Vrijeme: 0 s");
+        vrijeme.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
+
+        layoutVrijeme.getChildren().addAll(vrijeme);
 
         c1btn = new Button("C1");
         c1btn.setMinWidth(125);
@@ -108,9 +121,54 @@ public class Main extends Application implements Runnable
 
         gridPane.getChildren().addAll(c1btn, ckbtn, p1btn, p2btn, pkbtn ,btn1, btn2, btn3, btn4, btn5);
 
+        GridPane komande = new GridPane();
+        komande.setPadding(new Insets(10, 10, 10, 10));
+        komande.setVgap(10);
+        komande.setHgap(200);
 
-        primaryStage.setScene(new Scene(gridPane, 450, 400));
+        pokreni = new Button("Nastavi");
+        pokreni.setMinWidth(100);
+        pokreni.setMaxWidth(100);
+        pokreni.setMinHeight(35);
+        pokreni.setMaxHeight(35);
+        pokreni.setOnAction(e -> {
+            if(pauziran)
+            {
+                Initializator.pokreniSimulaciju();
+                pauziran = false;
+            }
+    });
+        GridPane.setConstraints(pokreni, 0, 0);
+
+        stopiraj = new Button("Pauziraj");
+        stopiraj.setMinWidth(100);
+        stopiraj.setMaxWidth(100);
+        stopiraj.setMinHeight(35);
+        stopiraj.setMaxHeight(35);
+        stopiraj.setOnAction(e -> {
+            if(!pauziran)
+            {
+                Initializator.stopirajSimulaciju();
+                pauziran = true;
+            }
+        });
+        GridPane.setConstraints(stopiraj, 1, 0);
+
+        komande.getChildren().addAll(pokreni, stopiraj);
+
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+        vBox.getChildren().addAll(layoutVrijeme, new Separator(), gridPane, new Separator(), komande);
+
+        primaryStage.setScene(new Scene(vBox, 450, 480));
         primaryStage.show();
+
+        Log logGui = new Log();
+        logGui.start(new Stage());
+    }
+
+    public static boolean isPauziran() {
+        return pauziran;
     }
 
     public synchronized static void setBtn1Text(String text)
@@ -250,6 +308,13 @@ public class Main extends Application implements Runnable
     {
         Platform.runLater(() -> {
             ckbtn.setStyle(text);
+        });
+    }
+
+    public synchronized static void setVrijeme(String text)
+    {
+        Platform.runLater(() -> {
+            vrijeme.setText(text);
         });
     }
 

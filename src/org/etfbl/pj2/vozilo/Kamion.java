@@ -1,6 +1,7 @@
 package org.etfbl.pj2.vozilo;
 
 import org.etfbl.pj2.dokumentacija.CarinskaDokumentacija;
+import org.etfbl.pj2.gui.Log;
 import org.etfbl.pj2.gui.Main;
 import org.etfbl.pj2.putnik.Putnik;
 import org.etfbl.pj2.simulacija.Simulacija;
@@ -116,10 +117,12 @@ public class Kamion extends Vozilo
         Main.setPkbtnText(this.getClass().getSimpleName() + ": " + this.getIdVozilo());
         Main.setPkbtnColor("-fx-background-color: #5FAEEA;");
         System.out.println("Obrada kamiona " + this.getIdVozilo() + " na terminalu 3");
+        Log.logMessage("Obrada kamiona " + this.getIdVozilo() + " na terminalu 3");
         validnoVozilo = this.policijskaLogika();
         if(!validnoVozilo)
         {
             System.out.println("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
+            Log.logMessage("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
             Main.setPkbtnText("PK");
             Main.setPkbtnColor("-fx-background-color: #ABFFAC;");
             Simulacija.pk.setVozilo(null);
@@ -161,10 +164,12 @@ public class Kamion extends Vozilo
                 Main.setCkbtnText(this.getClass().getSimpleName() + ": " + this.getIdVozilo());
                 Main.setCkbtnColor("-fx-background-color: #5FAEEA;");
                 System.out.println("Obrada kamiona " + this.getIdVozilo() + " na carinskom terminalu");
+                Log.logMessage("Obrada kamiona " + this.getIdVozilo() + " na carinskom terminalu");
                 validnoVozilo = this.carinskaLogika();
                 if(!validnoVozilo)
                 {
                     System.out.println("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
+                    Log.logMessage("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
                     //return;
                 }
                 Main.setCkbtnText("CK");

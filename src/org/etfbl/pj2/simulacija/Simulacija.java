@@ -1,6 +1,7 @@
 package org.etfbl.pj2.simulacija;
 
 import javafx.scene.control.Button;
+import org.etfbl.pj2.gui.Log;
 import org.etfbl.pj2.gui.Main;
 import org.etfbl.pj2.putnik.IdentifikacioniDokument;
 import org.etfbl.pj2.putnik.Putnik;
@@ -8,6 +9,7 @@ import org.etfbl.pj2.terminal.CarinskiTerminal;
 import org.etfbl.pj2.terminal.PolicijskiTerminal;
 import org.etfbl.pj2.util.Initializator;
 import org.etfbl.pj2.util.Reporter;
+import org.etfbl.pj2.util.Stoperica;
 import org.etfbl.pj2.util.Watcher;
 import org.etfbl.pj2.vozilo.Autobus;
 import org.etfbl.pj2.vozilo.Kamion;
@@ -71,6 +73,8 @@ public class Simulacija
 
         long pocetak = System.currentTimeMillis();
 //        Initializator.prvih5().stream().forEach(e -> System.out.println(e.getIdVozilo()));
+        Stoperica stoperica = new Stoperica();
+        stoperica.start();
         Initializator.prvih5();
         kretanjeVozila(vozilos);
 
@@ -83,7 +87,9 @@ public class Simulacija
             }
         }
 
+        Stoperica.setAktivna(false);
         System.out.println("KRAJ SIMULACIJE");
+        Log.logMessage("KRAJ SIMULACIJE");
         Reporter.serijalizacijaKaznjenih();
         System.out.println(System.currentTimeMillis() - pocetak);
     }
@@ -96,6 +102,7 @@ public class Simulacija
                     Vozilo v = vozila.poll();
 //                    Initializator.prvih5().stream().forEach(e -> System.out.println(e.getIdVozilo()));
                     System.out.println("Izlazi vozilo: " + v.getIdVozilo());
+                    Log.logMessage("Izlazi vozilo: " + v.getIdVozilo());
                     v.start();
                     Initializator.prvih5();
                     synchronized (startedKamions)
@@ -111,6 +118,7 @@ public class Simulacija
                     Vozilo v = vozila.poll();
 //                    Initializator.prvih5().stream().forEach(e -> System.out.println(e.getIdVozilo()));
                     System.out.println("Izlazi vozilo: " + v.getIdVozilo());
+                    Log.logMessage("Izlazi vozilo: " + v.getIdVozilo());
                     v.start();
                     Initializator.prvih5();
                     synchronized (startedOther)

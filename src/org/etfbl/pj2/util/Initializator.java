@@ -61,6 +61,20 @@ public class Initializator
         }
     }
 
+    public static void stopirajSimulaciju()
+    {
+        Simulacija.p1.setRadi(false);
+        Simulacija.p2.setRadi(false);
+        Simulacija.pk.setRadi(false);
+        Simulacija.c1.setRadi(false);
+        Simulacija.ck.setRadi(false);
+    }
+
+    public static void pokreniSimulaciju()
+    {
+        Watcher.ucitajTerminale();
+    }
+
     public static List<Vozilo> prvih5()
     {
         List<Vozilo> vozila = new ArrayList<>();

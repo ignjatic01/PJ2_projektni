@@ -1,5 +1,7 @@
 package org.etfbl.pj2.util;
 
+import org.etfbl.pj2.gui.Log;
+import org.etfbl.pj2.gui.Main;
 import org.etfbl.pj2.simulacija.Simulacija;
 
 import java.io.*;
@@ -41,6 +43,7 @@ public class Watcher extends Thread
             Logger.getLogger(Watcher.class.getName()).log(Level.WARNING, "Greska prilikom registracije Watch servisa");
         }
         System.out.println("Watcher je pokrenut. Pratim promjene u direktorijumu: " + directoryPath);
+//        Log.logMessage("Watcher je pokrenut. Pratim promjene u direktorijumu: " + directoryPath);
         while (true)
         {
             try {
@@ -54,7 +57,10 @@ public class Watcher extends Thread
                     }
                 }
                 key.reset();
-                ucitajTerminale();
+                if(!Main.isPauziran())
+                {
+                    ucitajTerminale();
+                }
             } catch (InterruptedException e) {
                 Logger.getLogger(Watcher.class.getName()).log(Level.WARNING, "Interrupted izuzetak na Watcher niti prilikom uzimanja WatchKey iz WatchService");
             }
@@ -69,7 +75,8 @@ public class Watcher extends Thread
             String linija = "";
             while((linija = br.readLine()) != null )
             {
-                System.out.println(linija);
+                System.out.println("Ucitavanje terminala iz fajla zbog izmjene");
+                //Log.logMessage("Ucitavanje terminala iz fajla zbog izmjene");
                 String[] params = linija.split("#");
                 if("p1".equals(params[0]))
                 {

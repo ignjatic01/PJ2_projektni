@@ -1,5 +1,6 @@
 package org.etfbl.pj2.vozilo;
 
+import org.etfbl.pj2.gui.Log;
 import org.etfbl.pj2.gui.Main;
 import org.etfbl.pj2.putnik.Putnik;
 import org.etfbl.pj2.simulacija.Simulacija;
@@ -63,10 +64,12 @@ public class LicnoVozilo extends Vozilo
                 Main.setP1btnText(this.getClass().getSimpleName() + ": " + this.getIdVozilo());
                 Main.setP1btnColor("-fx-background-color: #28CB6F;");
                 System.out.println("Obrada licnog vozila " + this.getIdVozilo() + " na terminalu 1");
+                Log.logMessage("Obrada licnog vozila " + this.getIdVozilo() + " na terminalu 1");
                 validnoVozilo = this.policijskaLogika();
                 if(!validnoVozilo)
                 {
                     System.out.println("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
+                    Log.logMessage("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
                     Main.setP1btnText("P1");
                     Main.setP1btnColor("-fx-background-color: #ABFFAC;");
                     if(this.equals(Simulacija.p2.getVozilo()))
@@ -92,10 +95,12 @@ public class LicnoVozilo extends Vozilo
                 Main.setP2btnText(this.getClass().getSimpleName() + ": " + this.getIdVozilo());
                 Main.setP2btnColor("-fx-background-color: #28CB6F;");
                 System.out.println("Obrada licnog vozila " + this.getIdVozilo() + " na terminalu 2");
+                Log.logMessage("Obrada licnog vozila " + this.getIdVozilo() + " na terminalu 2");
                 validnoVozilo = this.policijskaLogika();
                 if(!validnoVozilo)
                 {
                     System.out.println("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
+                    Log.logMessage("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
                     Main.setP2btnText("P2");
                     Main.setP2btnColor("-fx-background-color: #ABFFAC;");
                     if(this.equals(Simulacija.p2.getVozilo()))
@@ -159,10 +164,12 @@ public class LicnoVozilo extends Vozilo
                 Main.setc1btnText(this.getClass().getSimpleName() + ": " + this.getIdVozilo());
                 Main.setc1btnColor("-fx-background-color: #28CB6F;");
                 System.out.println("Obrada licnog vozila " + this.getIdVozilo() + " na carinskom terminalu");
+                Log.logMessage("Obrada licnog vozila " + this.getIdVozilo() + " na carinskom terminalu");
                 validnoVozilo = this.carinskaLogika();
                 if(!validnoVozilo)
                 {
                     System.out.println("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
+                    Log.logMessage("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
                     //return;
                 }
                 Main.setc1btnText("C1");
