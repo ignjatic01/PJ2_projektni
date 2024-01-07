@@ -1,8 +1,7 @@
-Putnik#7#Putnik12#Vozilo7#Ima nedozvoljene stvari u koferu
-Putnik#7#Putnik22#Vozilo7#Ima nedozvoljene stvari u koferu
-Putnik#6#Putnik0#Vozilo6#Ima nedozvoljene stvari u koferu
-Putnik#10#Putnik23#Vozilo10#Ima nedozvoljene stvari u koferu
-Putnik#11#Putnik4#Vozilo11#Ima nedozvoljene stvari u koferu
-Putnik#12#Putnik4#Vozilo12#Ima nedozvoljene stvari u koferu
-Putnik#21#Putnik1#Vozilo21#Ima nedozvoljene stvari u koferu
-Putnik#21#Putnik24#Vozilo21#Ima nedozvoljene stvari u koferu
+Putnik#14#Putnik6#Vozilo14#Ima nedozvoljene stvari u koferu
+Putnik#14#Putnik12#Vozilo14#Ima nedozvoljene stvari u koferu
+Putnik#15#Putnik7#Vozilo15#Ima nedozvoljene stvari u koferu
+Putnik#15#Putnik45#Vozilo15#Ima nedozvoljene stvari u koferu
+Putnik#12#Putnik18#Vozilo12#Ima nedozvoljene stvari u koferu
+Putnik#12#Putnik40#Vozilo12#Ima nedozvoljene stvari u koferu
+Putnik#11#Putnik1#Vozilo11#Ima nedozvoljene stvari u koferu

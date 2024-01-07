@@ -99,12 +99,21 @@ public class Kamion extends Vozilo
         }
     }
 
-    @Override
-    public String toString()
-    {
-        return super.toString() + "Deklarisana tezina: " + this.getDeklarisanaTezina() + ", tezina: " + this.getStvarnaTezina() +
-                "\nCarinska dokumentacija: " + ((this.getDokumentacija() == null)? " postoji" : " ne postoji");
+//    @Override
+//    public String toString()
+//    {
+//        return super.toString() + "\n Deklarisana tezina: " + this.getDeklarisanaTezina() + ", tezina: " + this.getStvarnaTezina() +
+//                "\n Carinska dokumentacija: " + ((this.getDokumentacija() == null)? " postoji" : " ne postoji");
+//    }
+
+    public String toString() {
+        return String.format("%s%nDeklarisana tezina: %.3f t, tezina: %.3f t%nCarinska dokumentacija: %s",
+                super.toString(),
+                this.getDeklarisanaTezina(),
+                this.getStvarnaTezina(),
+                (this.getDokumentacija() == null) ? " postoji" : " ne postoji");
     }
+
 
     public void run()
     {

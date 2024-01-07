@@ -95,16 +95,19 @@ public class Initializator
             {
                 Main.setBtn1Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn1Color("-fx-background-color: #5FAEEA;");
+                Main.setBtn1OnAction(v);
             }
             else if (v instanceof LicnoVozilo)
             {
                 Main.setBtn1Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn1Color("-fx-background-color: #28CB6F;");
+                Main.setBtn1OnAction(v);
             }
             else
             {
                 Main.setBtn1Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn1Color("-fx-background-color: #2D58E4;");
+                Main.setBtn1OnAction(v);
             }
         }
         else

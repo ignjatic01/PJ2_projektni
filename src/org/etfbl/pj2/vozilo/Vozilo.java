@@ -121,11 +121,7 @@ public abstract class Vozilo extends Thread
     public String toString()
     {
         StringBuffer sb = new StringBuffer();
-        sb.append(this.getClass().getSimpleName() + " sa " + this.getBrojPutnika() + " putnika: ");
-        for(Putnik p : this.getPutnici())
-        {
-            sb.append(p.toString() + '\n');
-        }
+        sb.append(this.getClass().getSimpleName() + " sa " + this.getBrojPutnika() + " putnika.");
         return sb.toString();
     }
 

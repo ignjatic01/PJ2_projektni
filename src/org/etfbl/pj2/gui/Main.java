@@ -14,9 +14,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.etfbl.pj2.util.Initializator;
+import org.etfbl.pj2.vozilo.Vozilo;
+
+import java.util.concurrent.CountDownLatch;
 
 public class Main extends Application implements Runnable
 {
+    private static CountDownLatch guiInitializedLatch = new CountDownLatch(1);
     private static Button btn1;
     private static Button btn2;
     private static Button btn3;
@@ -165,6 +169,11 @@ public class Main extends Application implements Runnable
 
         Log logGui = new Log();
         logGui.start(new Stage());
+        guiInitializedLatch.countDown();
+    }
+
+    public static CountDownLatch getGuiInitializedLatch() {
+        return guiInitializedLatch;
     }
 
     public static boolean isPauziran() {
@@ -183,6 +192,11 @@ public class Main extends Application implements Runnable
         Platform.runLater(() -> {
             btn1.setStyle(text);
         });
+    }
+
+    public synchronized static void setBtn1OnAction(Vozilo vozilo)
+    {
+        btn1.setOnAction(e -> prikaziVozilo(vozilo));
     }
 
     public synchronized static void setBtn2Text(String text)
@@ -316,6 +330,13 @@ public class Main extends Application implements Runnable
         Platform.runLater(() -> {
             vrijeme.setText(text);
         });
+    }
+
+    private static void prikaziVozilo(Vozilo vozilo)
+    {
+        VoziloView voziloView = new VoziloView();
+        voziloView.setVozilo(vozilo);
+        voziloView.start(new Stage());
     }
 
     @Override

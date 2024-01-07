@@ -19,6 +19,7 @@ import org.etfbl.pj2.vozilo.Vozilo;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
@@ -41,6 +42,10 @@ public class Simulacija
 
     public static Handler handler;
 
+    private static final int BROJ_KAMIONA = 10;
+    private static final int BROJ_AUTOBUSA = 5;
+    private static final int BROJ_AUTA = 35;
+
     static
     {
         try
@@ -58,6 +63,7 @@ public class Simulacija
     public static void main(String args[])
     {
         initializeVozila();
+        Collections.shuffle(vozila);
         List<Vozilo> vozilos = new ArrayList<>();
         initializeFiles();
 
@@ -66,9 +72,9 @@ public class Simulacija
         guiThread.start();
 
         try {
-            Thread.sleep(4000);
+            Main.getGuiInitializedLatch().await();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, "Interrupted prilikom cekanja na inicijalizaciju gui-a");
         }
 
         long pocetak = System.currentTimeMillis();
@@ -135,33 +141,18 @@ public class Simulacija
 
     public static void initializeVozila()
     {
-        vozila.add(new Kamion());
-        vozila.add(new Kamion());
-        vozila.add(new Kamion());
-        vozila.add(new Kamion());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new Autobus());
-        vozila.add(new Autobus());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new Autobus());
-        vozila.add(new Autobus());
-        vozila.add(new Autobus());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new Kamion());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new Kamion());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new Autobus());
-        vozila.add(new Kamion());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
-        vozila.add(new LicnoVozilo());
+        for(int i = 0; i < BROJ_KAMIONA; i++)
+        {
+            vozila.add(new Kamion());
+        }
+        for(int i = 0; i < BROJ_AUTOBUSA; i++)
+        {
+            vozila.add(new Autobus());
+        }
+        for(int i = 0; i < BROJ_AUTA; i++)
+        {
+            vozila.add(new LicnoVozilo());
+        }
     }
 
     public static void initializeFiles()
