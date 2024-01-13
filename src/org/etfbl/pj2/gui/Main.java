@@ -213,6 +213,11 @@ public class Main extends Application implements Runnable
         });
     }
 
+    public synchronized static void setBtn2OnAction(Vozilo vozilo)
+    {
+        btn2.setOnAction(e -> prikaziVozilo(vozilo));
+    }
+
     public synchronized static void setBtn3Text(String text)
     {
         Platform.runLater(() -> {
@@ -225,6 +230,11 @@ public class Main extends Application implements Runnable
         Platform.runLater(() -> {
             btn3.setStyle(text);
         });
+    }
+
+    public synchronized static void setBtn3OnAction(Vozilo vozilo)
+    {
+        btn3.setOnAction(e -> prikaziVozilo(vozilo));
     }
 
     public synchronized static void setBtn4Text(String text)
@@ -241,6 +251,11 @@ public class Main extends Application implements Runnable
         });
     }
 
+    public synchronized static void setBtn4OnAction(Vozilo vozilo)
+    {
+        btn4.setOnAction(e -> prikaziVozilo(vozilo));
+    }
+
     public synchronized static void setBtn5Text(String text)
     {
         Platform.runLater(() -> {
@@ -253,6 +268,11 @@ public class Main extends Application implements Runnable
         Platform.runLater(() -> {
             btn5.setStyle(text);
         });
+    }
+
+    public synchronized static void setBtn5OnAction(Vozilo vozilo)
+    {
+        btn5.setOnAction(e -> prikaziVozilo(vozilo));
     }
 
     public synchronized static void setP1btnText(String text)
@@ -269,6 +289,11 @@ public class Main extends Application implements Runnable
         });
     }
 
+    public synchronized static void setP1btnOnAction(Vozilo vozilo)
+    {
+        p1btn.setOnAction(e -> prikaziVozilo(vozilo));
+    }
+
     public synchronized static void setP2btnText(String text)
     {
         Platform.runLater(() -> {
@@ -281,6 +306,11 @@ public class Main extends Application implements Runnable
         Platform.runLater(() -> {
             p2btn.setStyle(text);
         });
+    }
+
+    public synchronized static void setP2btnOnAction(Vozilo vozilo)
+    {
+        p2btn.setOnAction(e -> prikaziVozilo(vozilo));
     }
 
     public synchronized static void setPkbtnText(String text)
@@ -297,6 +327,11 @@ public class Main extends Application implements Runnable
         });
     }
 
+    public synchronized static void setPkbtnOnAction(Vozilo vozilo)
+    {
+        pkbtn.setOnAction(e -> prikaziVozilo(vozilo));
+    }
+
     public synchronized static void setc1btnText(String text)
     {
         Platform.runLater(() -> {
@@ -309,6 +344,11 @@ public class Main extends Application implements Runnable
         Platform.runLater(() -> {
             c1btn.setStyle(text);
         });
+    }
+
+    public synchronized static void setc1btnOnAction(Vozilo vozilo)
+    {
+        c1btn.setOnAction(e -> prikaziVozilo(vozilo));
     }
 
     public synchronized static void setCkbtnText(String text)
@@ -325,6 +365,11 @@ public class Main extends Application implements Runnable
         });
     }
 
+    public synchronized static void setCkbtnOnAction(Vozilo vozilo)
+    {
+        ckbtn.setOnAction(e -> prikaziVozilo(vozilo));
+    }
+
     public synchronized static void setVrijeme(String text)
     {
         Platform.runLater(() -> {
@@ -334,9 +379,12 @@ public class Main extends Application implements Runnable
 
     private static void prikaziVozilo(Vozilo vozilo)
     {
-        VoziloView voziloView = new VoziloView();
-        voziloView.setVozilo(vozilo);
-        voziloView.start(new Stage());
+        if(vozilo != null)
+        {
+            VoziloView voziloView = new VoziloView();
+            voziloView.setVozilo(vozilo);
+            voziloView.start(new Stage());
+        }
     }
 
     @Override

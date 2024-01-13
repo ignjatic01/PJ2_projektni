@@ -125,6 +125,7 @@ public class Kamion extends Vozilo
         Simulacija.pk.setVozilo(this);
         Main.setPkbtnText(this.getClass().getSimpleName() + ": " + this.getIdVozilo());
         Main.setPkbtnColor("-fx-background-color: #5FAEEA;");
+        Main.setPkbtnOnAction(this);
         System.out.println("Obrada kamiona " + this.getIdVozilo() + " na terminalu 3");
         Log.logMessage("Obrada kamiona " + this.getIdVozilo() + " na terminalu 3");
         validnoVozilo = this.policijskaLogika();
@@ -134,6 +135,7 @@ public class Kamion extends Vozilo
             Log.logMessage("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
             Main.setPkbtnText("PK");
             Main.setPkbtnColor("-fx-background-color: #ABFFAC;");
+            Main.setPkbtnOnAction(null);
             Simulacija.pk.setVozilo(null);
             Simulacija.pk.setSlobodan(true);
             synchronized (Simulacija.startedKamions)
@@ -161,6 +163,7 @@ public class Kamion extends Vozilo
             {
                 Main.setPkbtnText("PK");
                 Main.setPkbtnColor("-fx-background-color: #ABFFAC;");
+                Main.setPkbtnOnAction(null);
                 Simulacija.pk.setVozilo(null);
                 Simulacija.pk.setSlobodan(true);
                 synchronized (Simulacija.startedKamions)
@@ -172,6 +175,7 @@ public class Kamion extends Vozilo
                 Simulacija.ck.setVozilo(this);
                 Main.setCkbtnText(this.getClass().getSimpleName() + ": " + this.getIdVozilo());
                 Main.setCkbtnColor("-fx-background-color: #5FAEEA;");
+                Main.setCkbtnOnAction(this);
                 System.out.println("Obrada kamiona " + this.getIdVozilo() + " na carinskom terminalu");
                 Log.logMessage("Obrada kamiona " + this.getIdVozilo() + " na carinskom terminalu");
                 validnoVozilo = this.carinskaLogika();
@@ -183,6 +187,7 @@ public class Kamion extends Vozilo
                 }
                 Main.setCkbtnText("CK");
                 Main.setCkbtnColor("-fx-background-color: #A7F9CB;");
+                Main.setCkbtnOnAction(null);
                 Simulacija.ck.setSlobodan(true);
                 Simulacija.ck.setVozilo(null);
                 carinskaPetlja = false;

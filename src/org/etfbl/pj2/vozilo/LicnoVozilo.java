@@ -63,6 +63,7 @@ public class LicnoVozilo extends Vozilo
                 Simulacija.p1.setVozilo(this);
                 Main.setP1btnText(this.getClass().getSimpleName() + ": " + this.getIdVozilo());
                 Main.setP1btnColor("-fx-background-color: #28CB6F;");
+                Main.setP1btnOnAction(this);
                 System.out.println("Obrada licnog vozila " + this.getIdVozilo() + " na terminalu 1");
                 Log.logMessage("Obrada licnog vozila " + this.getIdVozilo() + " na terminalu 1");
                 validnoVozilo = this.policijskaLogika();
@@ -72,6 +73,7 @@ public class LicnoVozilo extends Vozilo
                     Log.logMessage("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
                     Main.setP1btnText("P1");
                     Main.setP1btnColor("-fx-background-color: #ABFFAC;");
+                    Main.setP1btnOnAction(null);
                     if(this.equals(Simulacija.p2.getVozilo()))
                     {
                         Simulacija.p2.setVozilo(null);
@@ -94,6 +96,7 @@ public class LicnoVozilo extends Vozilo
                 Simulacija.p2.setVozilo(this);
                 Main.setP2btnText(this.getClass().getSimpleName() + ": " + this.getIdVozilo());
                 Main.setP2btnColor("-fx-background-color: #28CB6F;");
+                Main.setP2btnOnAction(this);
                 System.out.println("Obrada licnog vozila " + this.getIdVozilo() + " na terminalu 2");
                 Log.logMessage("Obrada licnog vozila " + this.getIdVozilo() + " na terminalu 2");
                 validnoVozilo = this.policijskaLogika();
@@ -103,6 +106,7 @@ public class LicnoVozilo extends Vozilo
                     Log.logMessage("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
                     Main.setP2btnText("P2");
                     Main.setP2btnColor("-fx-background-color: #ABFFAC;");
+                    Main.setP2btnOnAction(null);
                     if(this.equals(Simulacija.p2.getVozilo()))
                     {
                         Simulacija.p2.setVozilo(null);
@@ -143,6 +147,7 @@ public class LicnoVozilo extends Vozilo
                 {
                     Main.setP2btnText("P2");
                     Main.setP2btnColor("-fx-background-color: #ABFFAC;");
+                    Main.setP2btnOnAction(null);
                     Simulacija.p2.setVozilo(null);
                     Simulacija.p2.setSlobodan(true);
                 }
@@ -150,6 +155,7 @@ public class LicnoVozilo extends Vozilo
                 {
                     Main.setP1btnText("P1");
                     Main.setP1btnColor("-fx-background-color: #ABFFAC;");
+                    Main.setP1btnOnAction(null);
                     Simulacija.p1.setVozilo(null);
                     Simulacija.p1.setSlobodan(true);
                 }
@@ -163,6 +169,7 @@ public class LicnoVozilo extends Vozilo
                 Simulacija.c1.setVozilo(this);
                 Main.setc1btnText(this.getClass().getSimpleName() + ": " + this.getIdVozilo());
                 Main.setc1btnColor("-fx-background-color: #28CB6F;");
+                Main.setc1btnOnAction(this);
                 System.out.println("Obrada licnog vozila " + this.getIdVozilo() + " na carinskom terminalu");
                 Log.logMessage("Obrada licnog vozila " + this.getIdVozilo() + " na carinskom terminalu");
                 validnoVozilo = this.carinskaLogika();
@@ -174,6 +181,7 @@ public class LicnoVozilo extends Vozilo
                 }
                 Main.setc1btnText("C1");
                 Main.setc1btnColor("-fx-background-color: #A7F9CB;");
+                Main.setc1btnOnAction(null);
                 Simulacija.c1.setSlobodan(true);
                 Simulacija.c1.setVozilo(null);
                 carinskaPetlja = false;

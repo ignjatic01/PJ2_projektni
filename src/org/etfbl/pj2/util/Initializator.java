@@ -114,6 +114,7 @@ public class Initializator
         {
             Main.setBtn1Text("Prazno");
             Main.setBtn1Color("-fx-background-color: #eeeeee;");
+            Main.setBtn1OnAction(null);
         }
 
         if(iterator.hasNext())
@@ -124,22 +125,26 @@ public class Initializator
             {
                 Main.setBtn2Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn2Color("-fx-background-color: #5FAEEA;");
+                Main.setBtn2OnAction(v);
             }
             else if (v instanceof LicnoVozilo)
             {
                 Main.setBtn2Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn2Color("-fx-background-color: #28CB6F;");
+                Main.setBtn2OnAction(v);
             }
             else
             {
                 Main.setBtn2Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn2Color("-fx-background-color: #2D58E4;");
+                Main.setBtn2OnAction(v);
             }
         }
         else
         {
             Main.setBtn2Text("Prazno");
             Main.setBtn2Color("-fx-background-color: #eeeeee;");
+            Main.setBtn2OnAction(null);
         }
 
         if(iterator.hasNext())
@@ -150,22 +155,26 @@ public class Initializator
             {
                 Main.setBtn3Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn3Color("-fx-background-color: #5FAEEA;");
+                Main.setBtn3OnAction(v);
             }
             else if (v instanceof LicnoVozilo)
             {
                 Main.setBtn3Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn3Color("-fx-background-color: #28CB6F;");
+                Main.setBtn3OnAction(v);
             }
             else
             {
                 Main.setBtn3Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn3Color("-fx-background-color: #2D58E4;");
+                Main.setBtn3OnAction(v);
             }
         }
         else
         {
             Main.setBtn3Text("Prazno");
             Main.setBtn3Color("-fx-background-color: #eeeeee;");
+            Main.setBtn3OnAction(null);
         }
 
         if(iterator.hasNext())
@@ -176,22 +185,26 @@ public class Initializator
             {
                 Main.setBtn4Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn4Color("-fx-background-color: #5FAEEA;");
+                Main.setBtn4OnAction(v);
             }
             else if (v instanceof LicnoVozilo)
             {
                 Main.setBtn4Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn4Color("-fx-background-color: #28CB6F;");
+                Main.setBtn4OnAction(v);
             }
             else
             {
                 Main.setBtn4Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn4Color("-fx-background-color: #2D58E4;");
+                Main.setBtn4OnAction(v);
             }
         }
         else
         {
             Main.setBtn4Text("Prazno");
             Main.setBtn4Color("-fx-background-color: #eeeeee;");
+            Main.setBtn4OnAction(null);
         }
 
         if(iterator.hasNext())
@@ -202,22 +215,26 @@ public class Initializator
             {
                 Main.setBtn5Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn5Color("-fx-background-color: #5FAEEA;");
+                Main.setBtn5OnAction(v);
             }
             else if (v instanceof LicnoVozilo)
             {
                 Main.setBtn5Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn5Color("-fx-background-color: #28CB6F;");
+                Main.setBtn5OnAction(v);
             }
             else
             {
                 Main.setBtn5Text(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
                 Main.setBtn5Color("-fx-background-color: #2D58E4;");
+                Main.setBtn5OnAction(v);
             }
         }
         else
         {
             Main.setBtn5Text("Prazno");
             Main.setBtn5Color("-fx-background-color: #eeeeee;");
+            Main.setBtn5OnAction(null);
         }
         return vozila;
     }
