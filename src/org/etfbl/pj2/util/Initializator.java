@@ -1,5 +1,7 @@
 package org.etfbl.pj2.util;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.etfbl.pj2.gui.Main;
 import org.etfbl.pj2.simulacija.Simulacija;
 import org.etfbl.pj2.terminal.Terminal;
@@ -237,5 +239,21 @@ public class Initializator
             Main.setBtn5OnAction(null);
         }
         return vozila;
+    }
+
+    public static ObservableList<String> ucitavanjeOstalihVozila()
+    {
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        int i = 0;
+        for(Vozilo v : Simulacija.vozila)
+        {
+            if(i < 5)
+            {
+                i++;
+                continue;
+            }
+            observableList.add(v.getClass().getSimpleName() + ": " + v.getIdVozilo());
+        }
+        return  observableList;
     }
 }

@@ -1,2 +1,4 @@
-Kamion#3#Vozilo iskljuceno zbog pretovara
-Kamion#6#Vozilo iskljuceno zbog pretovara
+Kamion#10#Vozilo iskljuceno zbog pretovara
+LicnoVozilo#32#Vozac iskljucen na policijskom terminalu
+LicnoVozilo#34#Vozac iskljucen na policijskom terminalu
+LicnoVozilo#29#Vozac iskljucen na policijskom terminalu

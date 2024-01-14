@@ -3,6 +3,7 @@ package org.etfbl.pj2.simulacija;
 import javafx.scene.control.Button;
 import org.etfbl.pj2.gui.Log;
 import org.etfbl.pj2.gui.Main;
+import org.etfbl.pj2.gui.OstalaVozila;
 import org.etfbl.pj2.putnik.IdentifikacioniDokument;
 import org.etfbl.pj2.putnik.Putnik;
 import org.etfbl.pj2.terminal.CarinskiTerminal;
@@ -82,6 +83,7 @@ public class Simulacija
         Stoperica stoperica = new Stoperica();
         stoperica.start();
         Initializator.prvih5();
+        OstalaVozila.setListView(Initializator.ucitavanjeOstalihVozila());
         kretanjeVozila(vozilos);
 
         for(Vozilo v : vozilos)
@@ -111,6 +113,7 @@ public class Simulacija
                     Log.logMessage("Izlazi vozilo: " + v.getIdVozilo());
                     v.start();
                     Initializator.prvih5();
+                    OstalaVozila.setListView(Initializator.ucitavanjeOstalihVozila());
                     synchronized (startedKamions)
                     {
                         startedKamions++;
@@ -127,6 +130,7 @@ public class Simulacija
                     Log.logMessage("Izlazi vozilo: " + v.getIdVozilo());
                     v.start();
                     Initializator.prvih5();
+                    OstalaVozila.setListView(Initializator.ucitavanjeOstalihVozila());
                     synchronized (startedOther)
                     {
                         startedOther++;

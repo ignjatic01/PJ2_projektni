@@ -10,7 +10,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.etfbl.pj2.putnik.Putnik;
-import org.etfbl.pj2.vozilo.Kamion;
 import org.etfbl.pj2.vozilo.Vozilo;
 
 public class VoziloView extends Application {

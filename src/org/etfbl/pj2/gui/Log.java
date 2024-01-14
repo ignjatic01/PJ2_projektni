@@ -8,11 +8,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Log extends Application {
-
-//    public static void main(String[] args) {
-//        launch(args);
-//    }
-
     private static TextArea logTextArea;
     @Override
     public void start(Stage primaryStage)

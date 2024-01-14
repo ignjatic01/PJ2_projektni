@@ -3,12 +3,10 @@ package org.etfbl.pj2.gui;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -40,7 +38,7 @@ public class Main extends Application implements Runnable
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        primaryStage.setTitle("Hello world");
+        primaryStage.setTitle("Simulacija");
         StackPane layoutVrijeme = new StackPane();
 
         GridPane gridPane = new GridPane();
@@ -169,6 +167,9 @@ public class Main extends Application implements Runnable
 
         Log logGui = new Log();
         logGui.start(new Stage());
+
+        OstalaVozila ostalaVozila = new OstalaVozila();
+        ostalaVozila.start(new Stage());
         guiInitializedLatch.countDown();
     }
 
