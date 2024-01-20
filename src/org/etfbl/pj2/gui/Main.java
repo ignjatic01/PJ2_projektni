@@ -19,6 +19,7 @@ import java.util.concurrent.CountDownLatch;
 public class Main extends Application implements Runnable
 {
     private static CountDownLatch guiInitializedLatch = new CountDownLatch(1);
+    private static boolean kraj = false;
     private static Button btn1;
     private static Button btn2;
     private static Button btn3;
@@ -33,6 +34,7 @@ public class Main extends Application implements Runnable
     private static Button ckbtn;
     private static Button pokreni;
     private static Button stopiraj;
+    private static Button prikaz;
     private static Label vrijeme;
     private static volatile boolean pauziran;
     @Override
@@ -126,7 +128,7 @@ public class Main extends Application implements Runnable
         GridPane komande = new GridPane();
         komande.setPadding(new Insets(10, 10, 10, 10));
         komande.setVgap(10);
-        komande.setHgap(200);
+        komande.setHgap(20);
 
         pokreni = new Button("Nastavi");
         pokreni.setMinWidth(100);
@@ -156,7 +158,19 @@ public class Main extends Application implements Runnable
         });
         GridPane.setConstraints(stopiraj, 1, 0);
 
-        komande.getChildren().addAll(pokreni, stopiraj);
+        prikaz = new Button("Prikaz kaznjenih");
+        prikaz.setMinWidth(180);
+        prikaz.setMaxWidth(180);
+        prikaz.setMinHeight(35);
+        prikaz.setMaxHeight(35);
+        prikaz.setDisable(true);
+        prikaz.setOnAction(e -> {
+            Kaznjeni kaznjeni = new Kaznjeni();
+            kaznjeni.start(new Stage());
+        });
+        GridPane.setConstraints(prikaz, 2, 0);
+
+        komande.getChildren().addAll(pokreni, stopiraj, prikaz);
 
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(10, 10, 10, 10));
@@ -179,6 +193,18 @@ public class Main extends Application implements Runnable
 
     public static boolean isPauziran() {
         return pauziran;
+    }
+
+    public static boolean isKraj() {
+        return kraj;
+    }
+
+    public static void setKraj(boolean kraj) {
+        Main.kraj = kraj;
+        if(kraj)
+        {
+            prikaz.setDisable(false);
+        }
     }
 
     public synchronized static void setBtn1Text(String text)

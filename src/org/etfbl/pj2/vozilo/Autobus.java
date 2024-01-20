@@ -7,7 +7,6 @@ import org.etfbl.pj2.putnik.Putnik;
 import org.etfbl.pj2.simulacija.Simulacija;
 import org.etfbl.pj2.terminal.PolicijskiTerminal;
 import org.etfbl.pj2.util.Reporter;
-import org.etfbl.pj2.util.Watcher;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +45,7 @@ public class Autobus extends Vozilo
             {
                 kofer = new Kofer();
             }
-            putnici.add(new Putnik("Putnik" + i, "Vozilo" + this.getIdVozilo(), kofer, i == 0));
+            putnici.add(new Putnik("PutnikIme" + i, "Prezime" + i, kofer, i == 0));
         }
     }
 
@@ -54,12 +53,6 @@ public class Autobus extends Vozilo
     public String toString()
     {
         return super.toString();
-    }
-
-    public static void main(String args[])
-    {
-        Vozilo a = new Autobus();
-        System.out.println(a.toString());
     }
 
     @Override
@@ -82,8 +75,8 @@ public class Autobus extends Vozilo
                 validnoVozilo = this.policijskaLogika();
                 if(!validnoVozilo)
                 {
-                    System.out.println("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
-                    Log.logMessage("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
+                    System.out.println("VOZILO " + this.getIdVozilo() + " JE IZBACENO!!!");
+                    Log.logMessage("VOZILO " + this.getIdVozilo() + " JE IZBACENO!!!");
                     Main.setP1btnText("P1");
                     Main.setP1btnColor("-fx-background-color: #ABFFAC;");
                     Main.setP1btnOnAction(null);
@@ -261,6 +254,7 @@ public class Autobus extends Vozilo
             if(!p.getId().isIspravan())
             {
                 PolicijskiTerminal.addKaznjeniPutnik(p);
+                Reporter.upisNeispravnogPutnika("Ima neispravne dokumente", this, p);
                 iterator.remove();
                 if(p.isVozac())
                 {

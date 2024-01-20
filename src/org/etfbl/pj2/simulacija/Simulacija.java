@@ -1,11 +1,8 @@
 package org.etfbl.pj2.simulacija;
 
-import javafx.scene.control.Button;
 import org.etfbl.pj2.gui.Log;
 import org.etfbl.pj2.gui.Main;
 import org.etfbl.pj2.gui.OstalaVozila;
-import org.etfbl.pj2.putnik.IdentifikacioniDokument;
-import org.etfbl.pj2.putnik.Putnik;
 import org.etfbl.pj2.terminal.CarinskiTerminal;
 import org.etfbl.pj2.terminal.PolicijskiTerminal;
 import org.etfbl.pj2.util.Initializator;
@@ -23,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -79,7 +75,6 @@ public class Simulacija
         }
 
         long pocetak = System.currentTimeMillis();
-//        Initializator.prvih5().stream().forEach(e -> System.out.println(e.getIdVozilo()));
         Stoperica stoperica = new Stoperica();
         stoperica.start();
         Initializator.prvih5();
@@ -96,6 +91,7 @@ public class Simulacija
         }
 
         Stoperica.setAktivna(false);
+        Main.setKraj(true);
         System.out.println("KRAJ SIMULACIJE");
         Log.logMessage("KRAJ SIMULACIJE");
         Reporter.serijalizacijaKaznjenih();
@@ -108,7 +104,6 @@ public class Simulacija
             if (vozila.peek() instanceof Kamion) {
                 if (pk.isSlobodan() && startedKamions == 0 && pk.isRadi()) {
                     Vozilo v = vozila.poll();
-//                    Initializator.prvih5().stream().forEach(e -> System.out.println(e.getIdVozilo()));
                     System.out.println("Izlazi vozilo: " + v.getIdVozilo());
                     Log.logMessage("Izlazi vozilo: " + v.getIdVozilo());
                     v.start();
@@ -125,7 +120,6 @@ public class Simulacija
             } else if (vozila.peek() instanceof LicnoVozilo || vozila.peek() instanceof Autobus) {
                 if ((p1.isSlobodan() || p2.isSlobodan()) && startedOther + blockedPoliceTerminals <= 1) {
                     Vozilo v = vozila.poll();
-//                    Initializator.prvih5().stream().forEach(e -> System.out.println(e.getIdVozilo()));
                     System.out.println("Izlazi vozilo: " + v.getIdVozilo());
                     Log.logMessage("Izlazi vozilo: " + v.getIdVozilo());
                     v.start();

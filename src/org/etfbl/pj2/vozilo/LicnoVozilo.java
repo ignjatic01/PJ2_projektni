@@ -39,7 +39,7 @@ public class LicnoVozilo extends Vozilo
         super(MAX_BROJ_PUTNIKA);
         for(int i = 0; i < brojPutnika; i++)
         {
-            putnici.add(new Putnik("Putnik" + i, "Vozilo" + this.getIdVozilo(), i == 0));
+            putnici.add(new Putnik("Putnik" + i, "Prezime" + i, i == 0));
         }
     }
 
@@ -260,6 +260,7 @@ public class LicnoVozilo extends Vozilo
             if(!p.getId().isIspravan())
             {
                 PolicijskiTerminal.addKaznjeniPutnik(p);
+                Reporter.upisNeispravnogPutnika("Ima neispravne dokumente", this, p);
                 iterator.remove();
                 if(p.isVozac())
                 {

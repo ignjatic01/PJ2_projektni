@@ -46,7 +46,7 @@ public class Kamion extends Vozilo
         Random random = new Random();
         for(int i = 0; i < brojPutnika; i++)
         {
-            putnici.add(new Putnik("Putnik" + i, "Vozilo" + this.getIdVozilo(), i == 0));
+            putnici.add(new Putnik("Putnik" + i, "Prezime" + i, i == 0));
         }
         deklarisanaTezina = random.nextDouble() * 10;
         stvarnaTezina = initializeTeret(deklarisanaTezina);
@@ -99,13 +99,6 @@ public class Kamion extends Vozilo
         }
     }
 
-//    @Override
-//    public String toString()
-//    {
-//        return super.toString() + "\n Deklarisana tezina: " + this.getDeklarisanaTezina() + ", tezina: " + this.getStvarnaTezina() +
-//                "\n Carinska dokumentacija: " + ((this.getDokumentacija() == null)? " postoji" : " ne postoji");
-//    }
-
     public String toString() {
         return String.format("%s%nDeklarisana tezina: %.3f t, tezina: %.3f t%nCarinska dokumentacija: %s",
                 super.toString(),
@@ -131,8 +124,8 @@ public class Kamion extends Vozilo
         validnoVozilo = this.policijskaLogika();
         if(!validnoVozilo)
         {
-            System.out.println("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
-            Log.logMessage("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
+            System.out.println("VOZILO " + this.getIdVozilo() + " JE IZBACENO!!!");
+            Log.logMessage("VOZILO " + this.getIdVozilo() + " JE IZBACENO!!!");
             Main.setPkbtnText("PK");
             Main.setPkbtnColor("-fx-background-color: #ABFFAC;");
             Main.setPkbtnOnAction(null);
@@ -181,8 +174,8 @@ public class Kamion extends Vozilo
                 validnoVozilo = this.carinskaLogika();
                 if(!validnoVozilo)
                 {
-                    System.out.println("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
-                    Log.logMessage("VOZILO " + this.getIdVozilo() + "JE IZBACENO!!!");
+                    System.out.println("VOZILO " + this.getIdVozilo() + " JE IZBACENO!!!");
+                    Log.logMessage("VOZILO " + this.getIdVozilo() + " JE IZBACENO!!!");
                     //return;
                 }
                 Main.setCkbtnText("CK");
@@ -200,8 +193,6 @@ public class Kamion extends Vozilo
                 }
             }
         }
-
-//        Simulacija.policijskiTerminaliKamion.release();
     }
 
     @Override
@@ -219,6 +210,7 @@ public class Kamion extends Vozilo
             if(!p.getId().isIspravan())
             {
                 PolicijskiTerminal.addKaznjeniPutnik(p);
+                Reporter.upisNeispravnogPutnika("Ima neispravne dokumente", this, p);
                 iterator.remove();
                 if(p.isVozac())
                 {
@@ -238,7 +230,6 @@ public class Kamion extends Vozilo
         } catch (InterruptedException e) {
             Logger.getLogger(Kamion.class.getName()).log(Level.WARNING, "Interrupted tokom stanja spavanja niti (Policijska logika)");
         }
-        //System.out.println(this.getStvarnaTezina() +  " > " + this.getDeklarisanaTezina());
         if(this.getStvarnaTezina() > this.getDeklarisanaTezina())
         {
             Reporter.upisiNeispravnogVozila("Vozilo iskljuceno zbog pretovara", this);
@@ -247,17 +238,4 @@ public class Kamion extends Vozilo
         return true;
     }
 
-    public static void main(String args[])
-    {
-        List<Kamion> list = new ArrayList<>();
-        for(int i = 0; i < 10; i++)
-        {
-            list.add(new Kamion());
-        }
-        for(Kamion k : list)
-        {
-            System.out.println(k);
-            System.out.println();
-        }
-    }
 }

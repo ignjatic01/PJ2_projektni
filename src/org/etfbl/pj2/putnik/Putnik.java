@@ -1,11 +1,6 @@
 package org.etfbl.pj2.putnik;
 
-import org.etfbl.pj2.vozilo.Vozilo;
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;

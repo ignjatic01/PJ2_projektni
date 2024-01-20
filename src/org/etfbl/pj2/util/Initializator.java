@@ -45,7 +45,7 @@ public class Initializator
             File[] fajlovi = folder.listFiles();
             if(fajlovi != null)
             {
-                Arrays.stream(fajlovi).forEach(File::delete);
+                Arrays.stream(fajlovi).filter(f -> !f.getName().endsWith(".ser")).forEach(File::delete);
             }
         }
     }

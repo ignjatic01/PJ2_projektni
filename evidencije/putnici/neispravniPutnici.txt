@@ -1,13 +1,15 @@
-Putnik#14#Putnik5#Vozilo14#Ima nedozvoljene stvari u koferu
-Putnik#14#Putnik6#Vozilo14#Ima nedozvoljene stvari u koferu
-Putnik#14#Putnik16#Vozilo14#Ima nedozvoljene stvari u koferu
-Putnik#14#Putnik26#Vozilo14#Ima nedozvoljene stvari u koferu
-Putnik#14#Putnik38#Vozilo14#Ima nedozvoljene stvari u koferu
-Putnik#13#Putnik3#Vozilo13#Ima nedozvoljene stvari u koferu
-Putnik#13#Putnik7#Vozilo13#Ima nedozvoljene stvari u koferu
-Putnik#11#Putnik25#Vozilo11#Ima nedozvoljene stvari u koferu
-Putnik#11#Putnik32#Vozilo11#Ima nedozvoljene stvari u koferu
-Putnik#15#Putnik9#Vozilo15#Ima nedozvoljene stvari u koferu
-Putnik#15#Putnik27#Vozilo15#Ima nedozvoljene stvari u koferu
-Putnik#12#Putnik3#Vozilo12#Ima nedozvoljene stvari u koferu
-Putnik#12#Putnik20#Vozilo12#Ima nedozvoljene stvari u koferu
+Putnik#9#Putnik2#Prezime2#Ima neispravne dokumente
+Putnik#13#PutnikIme9#Prezime9#Ima nedozvoljene stvari u koferu
+Putnik#23#Putnik1#Prezime1#Ima neispravne dokumente
+Putnik#15#PutnikIme2#Prezime2#Ima neispravne dokumente
+Putnik#15#PutnikIme0#Prezime0#Ima nedozvoljene stvari u koferu
+Putnik#11#PutnikIme24#Prezime24#Ima neispravne dokumente
+Putnik#11#PutnikIme33#Prezime33#Ima neispravne dokumente
+Putnik#11#PutnikIme4#Prezime4#Ima nedozvoljene stvari u koferu
+Putnik#11#PutnikIme8#Prezime8#Ima nedozvoljene stvari u koferu
+Putnik#11#PutnikIme11#Prezime11#Ima nedozvoljene stvari u koferu
+Putnik#11#PutnikIme19#Prezime19#Ima nedozvoljene stvari u koferu
+Putnik#11#PutnikIme31#Prezime31#Ima nedozvoljene stvari u koferu
+Putnik#14#PutnikIme20#Prezime20#Ima nedozvoljene stvari u koferu
+Putnik#14#PutnikIme31#Prezime31#Ima nedozvoljene stvari u koferu
+Putnik#12#PutnikIme8#Prezime8#Ima nedozvoljene stvari u koferu

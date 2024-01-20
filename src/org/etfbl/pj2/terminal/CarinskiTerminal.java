@@ -1,7 +1,5 @@
 package org.etfbl.pj2.terminal;
 
-import org.etfbl.pj2.simulacija.Simulacija;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.FileHandler;

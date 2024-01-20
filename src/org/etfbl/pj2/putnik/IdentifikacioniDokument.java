@@ -1,7 +1,5 @@
 package org.etfbl.pj2.putnik;
 
-import org.etfbl.pj2.dokumentacija.CarinskaDokumentacija;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
